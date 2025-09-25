@@ -516,7 +516,7 @@ FLASK_ENV=development python app.py
 - **👨‍💻 Author**: Lucky Sharma
 - **📧 Email**: itsluckysharma01@gmail.com
 - **🐙 GitHub**: [@itsluckysharma01](https://github.com/itsluckysharma01)
-- **💼 LinkedIn**: [Lucky Sharma](https://linkedin.com/in/itsluckysharma01)
+- **💼 LinkedIn**: [Lucky Sharma](https://www.linkedin.com/in/lucky-sharma918894599977)
 
 ---
 
