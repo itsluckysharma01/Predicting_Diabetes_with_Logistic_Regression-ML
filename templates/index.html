@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🩺 Diabetes Risk Predictor - AI-Powered Health Assessment</title>
+    <meta name="description" content="Advanced machine learning model for diabetes risk prediction with 95.72% accuracy. Get instant, personalized health insights.">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <h3>Loading Diabetes Predictor</h3>
+            <p>Preparing AI model for your health assessment...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-heartbeat pulse"></i>
+                <h1>Diabetes Risk Predictor</h1>
+                <span class="version">v1.0</span>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#predictor" class="nav-link">
+                    <i class="fas fa-calculator"></i>
+                    <span>Predictor</span>
+                </a>
+                <a href="#about" class="nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2 class="hero-title">
+                        🎯 Predict Diabetes Risk with 
+                        <span class="highlight gradient-text">95.72% Accuracy</span>
+                    </h2>
+                    <p class="hero-description">
+                        Advanced machine learning model powered by comprehensive health data analysis. 
+                        Get instant, personalized diabetes risk assessment with actionable health insights.
+                    </p>
+                    
+                    <div class="hero-features">
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Instant Results</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-check"></i>
+                            <span>95.72% Accurate</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-user-lock"></i>
+                            <span>Privacy Protected</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat animate-counter">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="stat-number" data-target="95.72">0</span><span class="stat-unit">%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                        <div class="stat animate-counter">
+                            <i class="fas fa-users"></i>
+                            <span class="stat-number" data-target="100000">0</span><span class="stat-unit">+</span>
+                            <span class="stat-label">Data Points</span>
+                        </div>
+                        <div class="stat animate-counter">
+                            <i class="fas fa-clock"></i>
+                            <span class="stat-number" data-target="5">0</span><span class="stat-unit">s</span>
+                            <span class="stat-label">Response Time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <button class="cta-button primary" onclick="scrollToPredictor()">
+                            <i class="fas fa-rocket"></i>
+                            <span>Start Assessment</span>
+                            <div class="button-glow"></div>
+                        </button>
+                        <button class="cta-button secondary" onclick="scrollToAbout()">
+                            <i class="fas fa-play"></i>
+                            <span>Learn More</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="medical-dashboard">
+                        <div class="dashboard-header">
+                            <div class="status-indicator online"></div>
+                            <span>AI Health Monitor</span>
+                            <div class="dashboard-time" id="currentTime"></div>
+                        </div>
+                        
+                        <div class="dashboard-content">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-weight"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <span class="metric-label">BMI</span>
+                                    <span class="metric-value animate">25.2</span>
+                                    <span class="metric-status normal">Normal</span>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <span class="metric-label">Glucose</span>
+                                    <span class="metric-value animate">95</span>
+                                    <span class="metric-unit">mg/dL</span>
+                                    <span class="metric-status normal">Optimal</span>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <span class="metric-label">HbA1c</span>
+                                    <span class="metric-value animate">5.4</span>
+                                    <span class="metric-unit">%</span>
+                                    <span class="metric-status normal">Good</span>
+                                </div>
+                            </div>
+                            
+                            <div class="risk-assessment">
+                                <div class="risk-circle low-risk">
+                                    <i class="fas fa-shield-check"></i>
+                                </div>
+                                <div class="risk-info">
+                                    <span class="risk-label">Risk Assessment</span>
+                                    <span class="risk-level">Low Risk</span>
+                                    <span class="risk-confidence">96% Confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Predictor Section -->
+    <section id="predictor" class="predictor-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-brain"></i>
+                    <span>AI-Powered Assessment</span>
+                </div>
+                <h2>Diabetes Risk Calculator</h2>
+                <p>Enter your health information for an instant, personalized risk assessment powered by advanced machine learning.</p>
+            </div>
+
+            <div class="predictor-container">
+                <div class="prediction-form-wrapper">
+                    <form id="predictionForm" class="prediction-form">
+                        <div class="form-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <span class="progress-text">Complete the form below</span>
+                        </div>
+
+                        <div class="form-sections">
+                            <!-- Personal Information Section -->
+                            <div class="form-section active" data-section="personal">
+                                <h3><i class="fas fa-user"></i> Personal Information</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="gender">
+                                            <i class="fas fa-venus-mars"></i>
+                                            Gender
+                                        </label>
+                                        <div class="select-wrapper">
+                                            <select id="gender" name="gender" required>
+                                                <option value="">Select Gender</option>
+                                                <option value="0">👩 Female</option>
+                                                <option value="1">👨 Male</option>
+                                            </select>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="age">
+                                            <i class="fas fa-birthday-cake"></i>
+                                            Age
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="age" name="age" min="18" max="120" required>
+                                            <span class="input-unit">years</span>
+                                        </div>
+                                        <div class="input-help">Age between 18-120 years</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Health Conditions Section -->
+                            <div class="form-section active" data-section="conditions">
+                                <h3><i class="fas fa-heartbeat"></i> Health Conditions</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="hypertension">
+                                            <i class="fas fa-heart-pulse"></i>
+                                            Hypertension (High Blood Pressure)
+                                        </label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="hypertension" value="0" required>
+                                                <span class="radio-checkmark"></span>
+                                                <span class="radio-label">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    No
+                                                </span>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="hypertension" value="1" required>
+                                                <span class="radio-checkmark"></span>
+                                                <span class="radio-label">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Yes
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="heart_disease">
+                                            <i class="fas fa-heart"></i>
+                                            Heart Disease
+                                        </label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="heart_disease" value="0" required>
+                                                <span class="radio-checkmark"></span>
+                                                <span class="radio-label">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    No
+                                                </span>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="heart_disease" value="1" required>
+                                                <span class="radio-checkmark"></span>
+                                                <span class="radio-label">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Yes
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group full-width">
+                                        <label for="smoking_history">
+                                            <i class="fas fa-smoking"></i>
+                                            Smoking History
+                                        </label>
+                                        <div class="select-wrapper">
+                                            <select id="smoking_history" name="smoking_history" required>
+                                                <option value="">Select Smoking History</option>
+                                                <option value="4">🚭 Never Smoked</option>
+                                                <option value="3">🚫 Former Smoker</option>
+                                                <option value="1">🚬 Current Smoker</option>
+                                                <option value="2">💨 Ever Smoked</option>
+                                                <option value="5">🚯 Not Current Smoker</option>
+                                                <option value="0">❓ No Information</option>
+                                            </select>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Physical Measurements Section -->
+                            <div class="form-section active" data-section="measurements">
+                                <h3><i class="fas fa-ruler-combined"></i> Physical Measurements</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="bmi">
+                                            <i class="fas fa-weight"></i>
+                                            Body Mass Index (BMI)
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="bmi" name="bmi" step="0.1" min="10" max="50" required>
+                                            <span class="input-unit">kg/m²</span>
+                                        </div>
+                                        <div class="input-help">
+                                            <span>Normal: 18.5-24.9</span>
+                                            <button type="button" class="bmi-calculator-btn" onclick="openBMICalculator()">
+                                                <i class="fas fa-calculator"></i>
+                                                Calculate BMI
+                                            </button>
+                                        </div>
+                                        <div class="bmi-indicator" id="bmiIndicator"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="hba1c">
+                                            <i class="fas fa-vial"></i>
+                                            HbA1c Level
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="hba1c" name="hba1c" step="0.1" min="3" max="15" required>
+                                            <span class="input-unit">%</span>
+                                        </div>
+                                        <div class="input-help">
+                                            Normal: &lt;5.7% | Pre-diabetes: 5.7-6.4% | Diabetes: ≥6.5%
+                                        </div>
+                                        <div class="hba1c-indicator" id="hba1cIndicator"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="glucose">
+                                            <i class="fas fa-tint"></i>
+                                            Blood Glucose Level
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="glucose" name="glucose" min="50" max="400" required>
+                                            <span class="input-unit">mg/dL</span>
+                                        </div>
+                                        <div class="input-help">
+                                            Normal fasting: 70-100 mg/dL | Pre-diabetes: 100-125 mg/dL
+                                        </div>
+                                        <div class="glucose-indicator" id="glucoseIndicator"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="clearForm()">
+                                <i class="fas fa-eraser"></i>
+                                <span>Clear Form</span>
+                            </button>
+                            <button type="submit" class="btn-primary" id="predictBtn">
+                                <span class="btn-content">
+                                    <i class="fas fa-brain"></i>
+                                    <span>Analyze Risk</span>
+                                </span>
+                                <div class="btn-loading hidden">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    <span>Analyzing...</span>
+                                </div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Results Panel -->
+                <div id="resultsPanel" class="results-panel hidden">
+                    <div class="results-header">
+                        <h3><i class="fas fa-chart-line"></i> Risk Assessment Results</h3>
+                        <button class="close-btn" onclick="closeResults()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="main-result">
+                            <div class="risk-visualization">
+                                <div class="risk-gauge">
+                                    <div class="gauge-circle">
+                                        <div class="gauge-fill" id="gaugeFill"></div>
+                                        <div class="gauge-center">
+                                            <div id="riskIndicator" class="risk-indicator">
+                                                <i class="fas fa-shield-alt"></i>
+                                                <span id="riskText">Processing...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="confidence-display">
+                                    <div class="confidence-label">Model Confidence</div>
+                                    <div id="confidenceScore" class="confidence-score">
+                                        <span id="confidenceValue">0%</span>
+                                    </div>
+                                    <div class="probability-breakdown">
+                                        <div class="prob-item">
+                                            <span class="prob-label">No Diabetes:</span>
+                                            <span id="probNoDiabetes" class="prob-value">0%</span>
+                                        </div>
+                                        <div class="prob-item">
+                                            <span class="prob-label">Diabetes Risk:</span>
+                                            <span id="probDiabetes" class="prob-value">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detailed-analysis">
+                            <div class="analysis-section">
+                                <h4><i class="fas fa-exclamation-triangle"></i> Risk Factors Analysis</h4>
+                                <div id="riskFactors" class="risk-factors-grid">
+                                    <!-- Risk factors will be populated here -->
+                                </div>
+                            </div>
+
+                            <div class="analysis-section">
+                                <h4><i class="fas fa-lightbulb"></i> Personalized Recommendations</h4>
+                                <div id="recommendationsList" class="recommendations-grid">
+                                    <!-- Recommendations will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-actions">
+                            <button class="btn-secondary" onclick="downloadResults()">
+                                <i class="fas fa-download"></i>
+                                <span>Download Report</span>
+                            </button>
+                            <button class="btn-secondary" onclick="shareResults()">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share Results</span>
+                            </button>
+                            <button class="btn-primary" onclick="newPrediction()">
+                                <i class="fas fa-plus"></i>
+                                <span>New Assessment</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-microscope"></i>
+                    <span>Science & Technology</span>
+                </div>
+                <h2>Advanced Machine Learning Model</h2>
+                <p>Understanding the cutting-edge technology behind accurate diabetes risk prediction</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Logistic Regression</h3>
+                        <p>Utilizes advanced logistic regression algorithm optimized for medical prediction tasks with robust statistical foundations.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Statistical Model</span>
+                            <span class="feature-tag">Interpretable</span>
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Comprehensive Dataset</h3>
+                        <p>Trained on 100,000+ diverse health records ensuring robust performance across different demographics and health profiles.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Large Scale</span>
+                            <span class="feature-tag">Diverse</span>
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                        <h3>Validated Performance</h3>
+                        <p>Rigorously tested with cross-validation achieving 95.72% accuracy with excellent precision and recall metrics.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Validated</span>
+                            <span class="feature-tag">Reliable</span>
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="card-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h3>Clinical Features</h3>
+                        <p>Analyzes key health indicators including BMI, HbA1c, blood glucose, cardiovascular factors, and lifestyle elements.</p>
+                        <div class="card-features">
+                            <span class="feature-tag">Evidence-Based</span>
+                            <span class="feature-tag">Comprehensive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="performance-metrics">
+                    <h3>Model Performance Metrics</h3>
+                    <div class="metrics-container">
+                        <div class="metric-circle-container">
+                            <div class="metric-circle" data-percentage="95.72">
+                                <svg class="circle-svg" viewBox="0 0 120 120">
+                                    <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+                                    <circle class="circle-progress" cx="60" cy="60" r="50" id="accuracyCircle"></circle>
+                                </svg>
+                                <div class="circle-content">
+                                    <span class="metric-number">95.72</span>
+                                    <span class="metric-unit">%</span>
+                                    <span class="metric-label">Accuracy</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="metric-circle-container">
+                            <div class="metric-circle" data-percentage="85.83">
+                                <svg class="circle-svg" viewBox="0 0 120 120">
+                                    <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+                                    <circle class="circle-progress" cx="60" cy="60" r="50" id="precisionCircle"></circle>
+                                </svg>
+                                <div class="circle-content">
+                                    <span class="metric-number">85.83</span>
+                                    <span class="metric-unit">%</span>
+                                    <span class="metric-label">Precision</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="metric-circle-container">
+                            <div class="metric-circle" data-percentage="62.11">
+                                <svg class="circle-svg" viewBox="0 0 120 120">
+                                    <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+                                    <circle class="circle-progress" cx="60" cy="60" r="50" id="recallCircle"></circle>
+                                </svg>
+                                <div class="circle-content">
+                                    <span class="metric-number">62.11</span>
+                                    <span class="metric-unit">%</span>
+                                    <span class="metric-label">Recall</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="metric-circle-container">
+                            <div class="metric-circle" data-percentage="72.07">
+                                <svg class="circle-svg" viewBox="0 0 120 120">
+                                    <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+                                    <circle class="circle-progress" cx="60" cy="60" r="50" id="f1Circle"></circle>
+                                </svg>
+                                <div class="circle-content">
+                                    <span class="metric-number">72.07</span>
+                                    <span class="metric-unit">%</span>
+                                    <span class="metric-label">F1-Score</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metrics-explanation">
+                        <div class="explanation-item">
+                            <strong>Accuracy (95.72%):</strong> Overall prediction correctness across all cases
+                        </div>
+                        <div class="explanation-item">
+                            <strong>Precision (85.83%):</strong> When predicting diabetes, the model is correct 85.83% of the time
+                        </div>
+                        <div class="explanation-item">
+                            <strong>Recall (62.11%):</strong> Model successfully identifies 62.11% of actual diabetes cases
+                        </div>
+                        <div class="explanation-item">
+                            <strong>F1-Score (72.07%):</strong> Balanced measure combining precision and recall
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BMI Calculator Modal -->
+    <div id="bmiModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-calculator"></i> BMI Calculator</h3>
+                <button class="close-btn" onclick="closeBMICalculator()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="bmi-calculator">
+                    <div class="calc-group">
+                        <label for="height">Height</label>
+                        <div class="input-with-toggle">
+                            <input type="number" id="height" placeholder="170" step="0.1">
+                            <div class="unit-toggle">
+                                <button type="button" class="unit-btn active" data-unit="cm">cm</button>
+                                <button type="button" class="unit-btn" data-unit="ft">ft/in</button>
+                            </div>
+                        </div>
+                        <div id="heightInches" class="height-inches hidden">
+                            <input type="number" id="feet" placeholder="5" min="3" max="8">
+                            <span>ft</span>
+                            <input type="number" id="inches" placeholder="7" min="0" max="11">
+                            <span>in</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label for="weight">Weight</label>
+                        <div class="input-with-toggle">
+                            <input type="number" id="weight" placeholder="70" step="0.1">
+                            <div class="unit-toggle">
+                                <button type="button" class="unit-btn active" data-unit="kg">kg</button>
+                                <button type="button" class="unit-btn" data-unit="lbs">lbs</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="calculateBMI()">
+                        <i class="fas fa-calculator"></i>
+                        Calculate BMI
+                    </button>
+
+                    <div id="bmiResult" class="bmi-result hidden">
+                        <div class="bmi-value">
+                            <span class="bmi-number">0.0</span>
+                            <span class="bmi-unit">kg/m²</span>
+                        </div>
+                        <div class="bmi-category">Normal Weight</div>
+                        <div class="bmi-range">BMI 18.5 - 24.9</div>
+                        <button type="button" class="btn-secondary" onclick="useBMI()">
+                            Use This BMI
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <i class="fas fa-heartbeat"></i>
+                            <h4>Diabetes Risk Predictor</h4>
+                        </div>
+                        <p>Advanced machine learning for diabetes risk assessment. Empowering individuals with data-driven health insights for better healthcare decisions.</p>
+                        <div class="social-links">
+                            <a href="https://github.com/itsluckysharma01" target="_blank" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" target="_blank" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" target="_blank" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links">
+                        <div class="footer-section">
+                            <h5>Navigation</h5>
+                            <ul>
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#predictor">Risk Assessment</a></li>
+                                <li><a href="#about">About Model</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-section">
+                            <h5>Resources</h5>
+                            <ul>
+                                <li><a href="#" target="_blank">Documentation</a></li>
+                                <li><a href="#" target="_blank">API Reference</a></li>
+                                <li><a href="https://github.com/itsluckysharma01/Predicting_Diabetes_with_Logistic_Regression-ML" target="_blank">GitHub Repo</a></li>
+                                <li><a href="#" target="_blank">Research Paper</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-section">
+                            <h5>Legal</h5>
+                            <ul>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                                <li><a href="#">Medical Disclaimer</a></li>
+                                <li><a href="#">Cookie Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="footer-disclaimer">
+                        <p><strong>Medical Disclaimer:</strong> This tool is for educational and informational purposes only. It is not intended to replace professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers regarding medical conditions.</p>
+                    </div>
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 Lucky Sharma. All rights reserved. | Built with ❤️ for better health outcomes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Section (Modal) -->
+    <div id="contactModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope"></i> Contact Information</h3>
+                <button class="close-btn" onclick="closeContactModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <strong>Developer</strong>
+                            <p>Lucky Sharma</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p>lucky.sharma@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <div>
+                            <strong>GitHub</strong>
+                            <p><a href="https://github.com/itsluckysharma01" target="_blank">@itsluckysharma01</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <strong>Project Repository</strong>
+                            <p><a href="https://github.com/itsluckysharma01/Predicting_Diabetes_with_Logistic_Regression-ML" target="_blank">View on GitHub</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
