@@ -14,7 +14,7 @@ An interactive, modern web application that predicts diabetes risk using machine
 
 ## 🌟 **Live Demo**
 
-🚀 **[View Live Application](http://127.0.0.1:5000)** (when running locally)
+🚀 **[View Live Application]([http://127.0.0.1:5000](https://predicting-diabetes-with-logistic.onrender.com))** (Deploy Link)
 
 ---
 
