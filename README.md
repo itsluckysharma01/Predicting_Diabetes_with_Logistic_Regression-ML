@@ -14,7 +14,7 @@ An interactive, modern web application that predicts diabetes risk using machine
 
 ## 🌟 **Live Demo**
 
-🚀 **[View Live Application]([https://predicting-diabetes-with-logistic.onrender.com])** (Deploy Link)
+🚀 **[View Live Application](https://predicting-diabetes-with-logistic.onrender.com)** (Deploy Link)
 
 ---
 
