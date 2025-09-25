@@ -212,8 +212,13 @@ class DiabetesPredictorApp {
   // Handle form submission
   async handleFormSubmission(e) {
     e.preventDefault();
+    console.log("Form submission started"); // Debug log
 
     if (this.isLoading) return;
+
+    // Collect form data first
+    this.collectFormData();
+    console.log("Form data collected:", this.formData); // Debug log
 
     // Validate form
     if (!this.validateForm()) {
@@ -221,13 +226,11 @@ class DiabetesPredictorApp {
       return;
     }
 
-    // Collect form data
-    this.collectFormData();
-
     // Show loading state
     this.setLoadingState(true);
 
     try {
+      console.log("Sending request to /predict"); // Debug log
       // Make prediction request
       const response = await fetch("/predict", {
         method: "POST",
@@ -238,6 +241,7 @@ class DiabetesPredictorApp {
       });
 
       const result = await response.json();
+      console.log("Received response:", result); // Debug log
 
       if (result.success) {
         this.displayResults(result);
@@ -255,18 +259,19 @@ class DiabetesPredictorApp {
 
   // Collect form data
   collectFormData() {
-    const form = document.getElementById("predictionForm");
-    const formData = new FormData(form);
-
     this.formData = {
-      gender: formData.get("gender"),
-      age: formData.get("age"),
-      hypertension: formData.get("hypertension"),
-      heart_disease: formData.get("heart_disease"),
-      smoking_history: formData.get("smoking_history"),
-      bmi: formData.get("bmi"),
-      hba1c: formData.get("hba1c"),
-      glucose: formData.get("glucose"),
+      gender: document.querySelector('[name="gender"]').value,
+      age: document.querySelector('[name="age"]').value,
+      hypertension:
+        document.querySelector('input[name="hypertension"]:checked')?.value ||
+        "",
+      heart_disease:
+        document.querySelector('input[name="heart_disease"]:checked')?.value ||
+        "",
+      smoking_history: document.querySelector('[name="smoking_history"]').value,
+      bmi: document.querySelector('[name="bmi"]').value,
+      hba1c: document.querySelector('[name="hba1c"]').value,
+      glucose: document.querySelector('[name="glucose"]').value,
     };
   }
 
@@ -284,27 +289,32 @@ class DiabetesPredictorApp {
     ];
 
     for (const field of requiredFields) {
-      const input = document.querySelector(`[name="${field}"]`);
-      if (!input || !input.value) {
-        this.highlightError(input);
+      let input;
+      let value;
+
+      if (field === "hypertension" || field === "heart_disease") {
+        // For radio buttons, check if any is selected
+        input = document.querySelector(`input[name="${field}"]:checked`);
+        value = input ? input.value : null;
+      } else {
+        input = document.querySelector(`[name="${field}"]`);
+        value = input ? input.value : null;
+      }
+
+      if (!value) {
+        console.log(`Field ${field} is missing or empty`); // Debug log
+        this.highlightError(
+          input || document.querySelector(`[name="${field}"]`)
+        );
         return false;
       }
     }
 
-    // Validate ranges
-    const age = parseInt(
-      this.formData?.age || document.querySelector('[name="age"]')?.value
-    );
-    const bmi = parseFloat(
-      this.formData?.bmi || document.querySelector('[name="bmi"]')?.value
-    );
-    const hba1c = parseFloat(
-      this.formData?.hba1c || document.querySelector('[name="hba1c"]')?.value
-    );
-    const glucose = parseInt(
-      this.formData?.glucose ||
-        document.querySelector('[name="glucose"]')?.value
-    );
+    // Validate ranges using the collected form data
+    const age = parseInt(this.formData.age);
+    const bmi = parseFloat(this.formData.bmi);
+    const hba1c = parseFloat(this.formData.hba1c);
+    const glucose = parseInt(this.formData.glucose);
 
     if (age < 18 || age > 120) {
       this.showToast("Age must be between 18 and 120 years.", "error");
